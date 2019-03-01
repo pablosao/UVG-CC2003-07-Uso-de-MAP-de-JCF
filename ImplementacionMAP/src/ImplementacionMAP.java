@@ -32,7 +32,14 @@ public class ImplementacionMAP {
                     control_global = false;
                 
                 }
-                else if(0 < opcion_map || opcion_map < 4){
+                else if(0 < opcion_map && opcion_map < 4){
+                    
+                    // Implementando MAP según la selección del usuario
+                    
+                    
+                    /*
+                    Agregar repetición de menu
+                    */
                     
                     // Solicitando la selección del path del archivo
                     System.out.print("Ingrese el path del archivo de cartas: ");
@@ -52,7 +59,7 @@ public class ImplementacionMAP {
                     opcion_menu = Keyboard.readInt();
                     
                     
-                }   
+                }
             }
         }
     }
