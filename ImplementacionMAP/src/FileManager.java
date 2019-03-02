@@ -34,7 +34,7 @@ public class FileManager {
             while((linea = reader.readLine()) != null){
                 //concatenamos con un tabular la lectura de la linea,
                 //el tabular se eliminara al separar las expresiones.
-                datos += linea;
+                datos += linea + "\n";
             }
             
             // Cerramos la conexion
