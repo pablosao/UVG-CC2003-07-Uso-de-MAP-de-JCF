@@ -22,10 +22,18 @@ public class ImplementacionMAP {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        
+        //Variables para el manejo dentro del sistema
         int opcion_map = 0, opcion_menu;
         String path_file = "";
+        
+        //Mapa de cartas
         Map cartas = null;
+        
+        //Mapa de las cartas del usuario
+        Map cartas_usuario = null;
+        
+        
+        boolean control_menu = true;
         
         while(true){
             
@@ -66,34 +74,57 @@ public class ImplementacionMAP {
                             
                             if((new FileManager(path_file)).getExists() && cartas != null){
                                 cartas = loadCards(path_file);
+                                //cartas.forEach((key, value) -> System.out.println(key + ": " + value));
                                 System.out.println(cartas);
                             }
                             else{
                                 System.out.println("\n\tEl archivo no se encontro en la ruta ingresada");
                             }
-                            
-                            
-                        
+
                     }
                     
-                    /*
-                    Agregar repetición de menu
-                    */
                     
+//                    int opcion;
+//                    
+//                    while(control_menu){
+//                        
+//                        // Desplegando menú de opciones
+//                        System.out.println("1)Agregar una carta a colección.");
+//                        System.out.println("2)Mostrar carta especifica.");
+//                        System.out.println("3)Mostrar cartas de la colección.");
+//                        System.out.println("4)Mostrar carta de colección ordenada por tipo.");
+//                        System.out.println("5)Mostrar nombre y tipo de cartas existentes.");
+//                        System.out.println("6)Mostrar nombre y tipo de cartas existentes ordenada por tipo.");
+//                        System.out.println("7)Cambiar Implementación de MAP.");
+//                        System.out.println("8)Salir del programa.");
+//
+//                        System.out.print("\nIngrese el número de la opción deseada: ");
+//                        opcion = Keyboard.readInt();                       
+//                        
+//                        if(opcion == 8){
+//                            System.exit(0);
+//                        }
+//                        else if(opcion == 7){
+//                            control_menu = false;
+//                        }
+//                        else if(0 < opcion && opcion < 6){
+//                            
+//                            switch(opcion){
+//                                case 3:
+//                                    if(cartas_usuario.size() == 0){
+//                                        System.out.println("\nNo ha agregado cartas");
+//                                    }
+//                                    else{
+//                                        cartas_usuario.forEach((key, value) -> System.out.println(key + ": " + value));
+//                                    }                                    
+//                            }
+//                        }
+//                        
+//                        
+//                    }
                     
 //                    
-//                    // Desplegando menú de opciones
-//                    System.out.println("1)Agregar una carta a colección.");
-//                    System.out.println("2)Mostrar carta especifica.");
-//                    System.out.println("3)Mostrar cartas de colección.");
-//                    System.out.println("4)Mostrar carta de colección ordenada por tipo.");
-//                    System.out.println("5)Mostrar nombre y tipo de cartas existentes.");
-//                    System.out.println("6)Mostrar nombre y tipo de cartas existentes ordenada por tipo.");
-//                    System.out.println("7)Cambiar Implementación de MAP.");
-//                    System.out.println("8)Salir del programa.");
-//                    
-//                    System.out.print("Ingrese el número de la opción deseada: ");
-//                    opcion_menu = Keyboard.readInt();
+
                     
                     
                 }
@@ -102,10 +133,11 @@ public class ImplementacionMAP {
     }
     
     
-    private static Map loadCards(String path){
-        Map maps = null;
+    private static Map<String,String> loadCards(String path){
+        Map<String,String> maps = null;
         String[] separacion = null;
         String[] lectura;
+        String temp = "",key="",value="";
         
         lectura = (new FileManager(path)).getDataFile().split(DELIMITADOR);
         
@@ -113,9 +145,19 @@ public class ImplementacionMAP {
             
             if(lectura[control].contains(DELIMITADOR_KEY)){
                                
-                separacion = (lectura[control].toString()).split(Pattern.quote(DELIMITADOR_KEY));
+                temp = lectura[control];
+                System.out.println(temp);
                 
-                maps.put(separacion[0],separacion[1]);
+                separacion = temp.split(Pattern.quote(DELIMITADOR_KEY));
+                
+                if(separacion.length == 2){
+                    System.out.println(separacion[0] + " <> " + separacion[1]);
+                    key = separacion[0].toString();
+                    value = separacion[1].toString();
+                    maps.put(key,value);
+                }
+                
+//                
             }
         }
          
