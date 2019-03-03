@@ -164,40 +164,61 @@ public class ImplementacionMAP {
                                 }
                                 else{
                                     System.out.println("\n\t-------------------------------------------------\n");
-                                    System.out.println("\tCartas de la Colección");
+                                    System.out.println("\tCartas de la Colección del Usuario");
                                     System.out.println("\t-------------------------------------------------\n");
                                     cartas_usuario.forEach((key, value) -> System.out.println("\t\t<> " + key ));
                                     System.out.println("\t-------------------------------------------------\n");
                                     
                                 }
                             }
+                            // Mostrando cartas de la colexión del usuario ordenadas por tipo
                             else if(opcion == 4){
-                                
-                            }
-                            //Mostrando el tipo de carta y la carta dentro de la colección del usuario
-                            else if(opcion == 5){
                                 if(cartas_usuario.size() == 0){
                                     System.out.println("\n\t\tNo ha agregado cartas");
                                 }
                                 else{
                                     System.out.println("\n\t-------------------------------------------------\n");
-                                    System.out.println("\tTipos de Cartas y Carta de la Colección\n");
-                                    System.out.println("\t-------------------------------------------------\n");
-                                    cartas_usuario.forEach((key, value) -> System.out.println("\t\t"+ value + " : " + key));
-                                    System.out.println("\t-------------------------------------------------\n");
-                                }
-                            }
-                            //Mostrando carta y tipo, ordenada por el tipo de carta
-                            else if(opcion == 6){
-                                if(cartas_usuario.size() == 0){
-                                    System.out.println("\n\t\tNo ha agregado cartas");
-                                }
-                                else{
-                                    System.out.println("\n\t-------------------------------------------------\n");
-                                    System.out.println("\tTipos de Cartas y Carta de la Colección\n");
+                                    System.out.println("\tTipos de Cartas y Carta de la Colección del Usuario\n");
                                     System.out.println("\t-------------------------------------------------\n");
                                     
                                     Map<String,String> tempMap = ordenarPorValue(cartas_usuario);
+                                    
+                                    tempMap.forEach((key, value) -> System.out.println("\t\t"+ value + " : " + key));
+                                    
+//                                    cartas_usuario.entrySet()
+//                                    .stream()
+//                                    .sorted(Map.Entry.<String, String>comparingByValue())
+//                                    .forEach(System.out::println);
+                                    
+                                    
+                                    //cartas_usuario.forEach((key, value) -> System.out.println("\t\t"+ value + " : " + key));
+                                    System.out.println("\t-------------------------------------------------\n");
+                                }
+                            }
+                            //Mostrando el tipo de carta y la carta de la colección cargada
+                            else if(opcion == 5){
+                                if(cartas.size() == 0){
+                                    System.out.println("\n\t\tNo hay cartas cargadas al sistema");
+                                }
+                                else{
+                                    System.out.println("\n\t-------------------------------------------------\n");
+                                    System.out.println("\tTipos de Cartas y Carta de la Colección Cargada\n");
+                                    System.out.println("\t-------------------------------------------------\n");
+                                    cartas.forEach((key, value) -> System.out.println("\t\t"+ value + " : " + key));
+                                    System.out.println("\t-------------------------------------------------\n");
+                                }
+                            }
+                            //Mostrando carta y tipo de la colexión cargada, ordenada por el tipo de carta
+                            else if(opcion == 6){
+                                if(cartas.size() == 0){
+                                    System.out.println("\n\t\tNo hay cartas cargadas al sistema");
+                                }
+                                else{
+                                    System.out.println("\n\t-------------------------------------------------\n");
+                                    System.out.println("\tTipos de Cartas y Carta de la Colección Cargada\n");
+                                    System.out.println("\t-------------------------------------------------\n");
+                                    
+                                    Map<String,String> tempMap = ordenarPorValue(cartas);
                                     
                                     tempMap.forEach((key, value) -> System.out.println("\t\t"+ value + " : " + key));
                                     
