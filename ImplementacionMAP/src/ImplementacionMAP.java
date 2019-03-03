@@ -256,20 +256,20 @@ public class ImplementacionMAP {
         return maps;
     }
     
-    public static <K extends Comparable<? super K>, V> Map<K, V> ordenarPorKey(Map<K, V> mapa_ordenar) {
+    public static Map<String, String> ordenarPorKey(Map<String, String> mapa_ordenar) {
  
-		Map<K, V> resultado = new LinkedHashMap<>();
-		Stream<Map.Entry<K, V>> sequentialStream = mapa_ordenar.entrySet().stream();
+		Map<String, String> resultado = new LinkedHashMap<>();
+		Stream<Map.Entry<String, String>> sequentialStream = mapa_ordenar.entrySet().stream();
  
 		// comparingByKey() returns a comparator that compares Map.Entry in natural order on key.
 		sequentialStream.sorted(Map.Entry.comparingByKey()).forEachOrdered(c -> resultado.put(c.getKey(), c.getValue()));
 		return resultado;
     }
     
-    public static <K extends Comparable<? super K>, V> Map<K, V> ordenarPorValue(Map<K, V> mapa_ordenar) {
+    public static Map<String, String> ordenarPorValue(Map<String, String> mapa_ordenar) {
  
-		Map<K, V> resultado = new LinkedHashMap<>();
-		Stream<Map.Entry<K, V>> sequentialStream = mapa_ordenar.entrySet().stream();
+		Map<String, String> resultado = new LinkedHashMap<>();
+		Stream<Map.Entry<String, String>> sequentialStream = mapa_ordenar.entrySet().stream();
  
 		// comparingByKey() returns a comparator that compares Map.Entry in natural order on key.
 		sequentialStream.sorted(Map.Entry.comparingByValue()).forEachOrdered(c -> resultado.put(c.getKey(), c.getValue()));
