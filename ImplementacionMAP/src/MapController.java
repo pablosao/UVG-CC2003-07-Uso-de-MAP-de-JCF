@@ -82,8 +82,15 @@ public class MapController {
 //                    //Guardando la información en el maps
 //                    maps.put((String)separacion[0].toUpperCase(),(String)separacion[1]);
 //                }
-                //Guardando la información en el maps
-                maps.put((String)separacion[0].toUpperCase(),(String)separacion[1]);
+                
+                //Validando que solo se agregen los 3 tipos de cartas soportados
+                if(separacion[1].equals("Trampa") ||
+                        separacion[1].equals("Hechizo") ||
+                        separacion[1].equals("Monstruo")){
+                    //Guardando la información en el maps
+                    maps.put((String)separacion[0].toUpperCase(),(String)separacion[1]);
+                } 
+                
                 
             }
         }

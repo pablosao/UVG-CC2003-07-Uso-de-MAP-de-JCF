@@ -334,6 +334,11 @@ public class ImplementacionMAP {
         return resultado;
     }
     
+    /***
+     * Metodo para verificar que tenga los 3 tipos de carta
+     * @param busqueda_mapa Map con las cartas del usuario
+     * @return verdadero si tiene los 3 tipos, falso si no tiene los tres tipos
+     */
     public static boolean haveTypes(Map<String, String> busqueda_mapa){
         
         //Obtenemos todas las llaves del mapa
