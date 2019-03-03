@@ -12,8 +12,8 @@ public class FileManager {
     String PATH_FILE = "";
     
     /***
-     * 
-     * @param path 
+     * Constructor utilizado para setear el path del file
+     * @param path path de la ruta del archivo
      */
     public FileManager(String path){
         PATH_FILE = path;

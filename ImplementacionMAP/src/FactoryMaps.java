@@ -1,7 +1,8 @@
 
 /**
- *
+ * Clase para seleccionar el tipo de implementación que se desea utilizar en map
  * @author pablo
+ * @version 01/03/2019
  */
 
 import java.util.HashMap;
@@ -13,8 +14,8 @@ public class FactoryMaps{
     
     /***
      * Metodo para obtención de las diferentes implementaciones de MAPs
-     * @param opcion 
-     * @return 
+     * @param opcion opción de map que se desea implementar
+     * @return instancia del maps seleccionado
      */
     public Map MAPS(String opcion){
         // Opción para HashMAP

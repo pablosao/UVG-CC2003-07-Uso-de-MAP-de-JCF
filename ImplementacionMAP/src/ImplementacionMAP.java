@@ -1,14 +1,12 @@
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
 /**
- * 
+ * Clase principal donde se maneja la implementación de Map
  * @author Pablo Sao
  * @version 01/03/2019
  */
@@ -277,24 +275,40 @@ public class ImplementacionMAP {
         return maps;
     }
     
+    /***
+     * Ordenamiento de Map por Key
+     * @param mapa_ordenar map que se desea ordenar
+     * @return map ordenado
+     */
     public static Map<String, String> ordenarPorKey(Map<String, String> mapa_ordenar) {
+        //Creando isntancia de Map
+	Map<String, String> resultado = new LinkedHashMap<>();
+	
+        //Creando Stream con los valores que se desean ordenar
+        Stream<Map.Entry<String, String>> sequentialStream = mapa_ordenar.entrySet().stream();
  
-		Map<String, String> resultado = new LinkedHashMap<>();
-		Stream<Map.Entry<String, String>> sequentialStream = mapa_ordenar.entrySet().stream();
- 
-		// comparingByKey() returns a comparator that compares Map.Entry in natural order on key.
-		sequentialStream.sorted(Map.Entry.comparingByKey()).forEachOrdered(c -> resultado.put(c.getKey(), c.getValue()));
-		return resultado;
+        //Ordenando map por Key y colocandolos de forma ordenada dentro del map creado al inicio
+	sequentialStream.sorted(Map.Entry.comparingByKey()).forEachOrdered(c -> resultado.put(c.getKey(), c.getValue()));
+	
+        return resultado;
     }
     
+    /***
+     * Ordenamiento de Map por value
+     * @param mapa_ordenar Map que se desea ordenar
+     * @return Map ordenado
+     */
     public static Map<String, String> ordenarPorValue(Map<String, String> mapa_ordenar) {
- 
-		Map<String, String> resultado = new LinkedHashMap<>();
-		Stream<Map.Entry<String, String>> sequentialStream = mapa_ordenar.entrySet().stream();
- 
-		// comparingByKey() returns a comparator that compares Map.Entry in natural order on key.
-		sequentialStream.sorted(Map.Entry.comparingByValue()).forEachOrdered(c -> resultado.put(c.getKey(), c.getValue()));
-		return resultado;
+        //Creando isntancia de Map
+	Map<String, String> resultado = new LinkedHashMap<>();
+                
+        //Creando Stream con los valores que se desean ordenar
+	Stream<Map.Entry<String, String>> sequentialStream = mapa_ordenar.entrySet().stream();
+                
+        //Ordenando map por Value y colocandolos de forma ordenada dentro del map creado al inicio
+	sequentialStream.sorted(Map.Entry.comparingByValue()).forEachOrdered(c -> resultado.put(c.getKey(), c.getValue()));
+	
+        return resultado;
     }
     
 }
