@@ -32,7 +32,6 @@ public class ImplementacionMAP {
         //Mapa de las cartas del usuario
         Map cartas_usuario = null;
         
-        
         boolean control_menu = true;
         
         while(true){
@@ -79,7 +78,7 @@ public class ImplementacionMAP {
                                 
                                 cartas = loadCards(cartas,path_file);
                                 
-                                //System.out.println(cartas);
+                                System.out.println("\n\n\tSe ha cargado con éxito el listado de cartas\n");
                             }
                             else{
                                 System.out.println("\n\tEl archivo no se encontro en la ruta ingresada");
@@ -115,7 +114,7 @@ public class ImplementacionMAP {
                         }
                         else if(0 < opcion && opcion < 6){
                             
-                            //Agregando una carta
+                            //Agregando una carta a la colección
                             if(opcion == 1){
                                 System.out.print("\n\nIngrese el nombre de la carta a agregar: ");
                                 String nueva_carta = Keyboard.readString();
@@ -128,30 +127,61 @@ public class ImplementacionMAP {
                                     System.out.println("\n\tLa carta ya se encuentra en su colección.");
                                 }
                             }
+                            //mostrando datos de una carta en especifico dentro de la colección
                             else if(opcion == 2){
-                                
-                            }
-                            else if(opcion == 3){
                                 if(cartas_usuario.size() == 0){
-                                    System.out.println("\nNo ha agregado cartas");
+                                    System.out.println("\n\t\tNo ha agregado cartas");
                                 }
                                 else{
-                                    cartas_usuario.forEach((key, value) -> System.out.println("Carta: " + key ));
+                                    
+                                    System.out.print("\n\nIngrese el nombre de la carta: ");
+                                    String tempCard = Keyboard.readString();
+                                    
+                                    if(cartas_usuario.containsKey(tempCard.toUpperCase())){
+                                        
+                                        System.out.println("\n\t-------------------------------------------------\n");
+                                        System.out.println("\tInformación de Carta");
+                                        System.out.println("\t-------------------------------------------------\n");
+                                        System.out.println("\t\tTipo: " + cartas_usuario.get(tempCard.toUpperCase()));
+                                        System.out.println("\t\tCarta: " + tempCard);
+                                        System.out.println("\t-------------------------------------------------\n");
+                                        
+                                    }
+                                    else{
+                                        System.out.println("\n\t\tLa carta ingresada no existe dentro de su colección");
+                                    }
+                                    
+                                    
+                                }
+                            }
+                            //Mostrando cartas de la colección
+                            else if(opcion == 3){
+                                if(cartas_usuario.size() == 0){
+                                    System.out.println("\n\t\tNo ha agregado cartas");
+                                }
+                                else{
+                                    System.out.println("\n\t-------------------------------------------------\n");
+                                    System.out.println("\tCartas de la Colección");
+                                    System.out.println("\t-------------------------------------------------\n");
+                                    cartas_usuario.forEach((key, value) -> System.out.println("\t\t<> " + key ));
+                                    System.out.println("\t-------------------------------------------------\n");
+                                    
                                 }
                             }
                             else if(opcion == 4){
                                 
                             }
+                            //Mostrando el tipo de carta y la carta dentro de la colección del usuario
                             else if(opcion == 5){
                                 if(cartas_usuario.size() == 0){
-                                    System.out.println("\nNo ha agregado cartas");
+                                    System.out.println("\n\t\tNo ha agregado cartas");
                                 }
                                 else{
                                     System.out.println("\n\t-------------------------------------------------\n");
-                                    System.out.println("\tTipo Carta : Carta\n");
+                                    System.out.println("\tTipos de Cartas y Carta de la Colección\n");
                                     System.out.println("\t-------------------------------------------------\n");
-                                    cartas_usuario.forEach((key, value) -> System.out.println("\t"+ value + " : " + key));
-                                    System.out.println("\t\t-------------------------------------------------\n");
+                                    cartas_usuario.forEach((key, value) -> System.out.println("\t\t"+ value + " : " + key));
+                                    System.out.println("\t-------------------------------------------------\n");
                                 }
                             }
                             else if(opcion == 6){
@@ -163,10 +193,9 @@ public class ImplementacionMAP {
                         
                     }
                     
-                    
+                    //Regresando el estado a true para ingresar nuevamente al menú de operaciones de usuario
+                    control_menu = true;
 
-                    
-                    
                 }
             }
         }
