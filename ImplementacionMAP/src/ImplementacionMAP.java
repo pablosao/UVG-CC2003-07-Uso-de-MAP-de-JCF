@@ -1,6 +1,8 @@
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -33,7 +35,7 @@ public class ImplementacionMAP {
         //Mapa de las cartas del usuario
         Map cartas_usuario = null;
         
-        boolean control_menu = true;
+        boolean control_menu = false;
         
         while(true){
             
@@ -77,9 +79,14 @@ public class ImplementacionMAP {
                             
                             if((new FileManager(path_file)).getExists() && cartas != null){
                                 
-                                cartas = loadCards(cartas,path_file);
+                                //cartas = loadCards(cartas,path_file);
                                 
-                                System.out.println("\n\n\tSe ha cargado con éxito el listado de cartas\n");
+                                MapController controlador_mapa = new MapController();
+                                cartas = controlador_mapa.loadCards(cartas, path_file, DELIMITADOR, DELIMITADOR_KEY);
+                                
+                                System.out.println(String.format("\n\n\tSe ha cargado con éxito %d cartas al listado.\n", cartas.size()));
+                                
+                                control_menu = true;
                             }
                             else{
                                 System.out.println("\n\tEl archivo no se encontro en la ruta ingresada");
@@ -95,10 +102,10 @@ public class ImplementacionMAP {
                         // Desplegando menú de opciones
                         System.out.println("\n1)Agregar una carta a colección.");
                         System.out.println("2)Mostrar carta especifica.");
-                        System.out.println("3)Mostrar cartas de la colección.");
-                        System.out.println("4)Mostrar carta de colección ordenada por tipo.");
-                        System.out.println("5)Mostrar nombre y tipo de cartas existentes.");
-                        System.out.println("6)Mostrar nombre y tipo de cartas existentes ordenada por tipo.");
+                        System.out.println("3)Mostrar cartas de la colección del usuario.");
+                        System.out.println("4)Mostrar carta de colección del usuario, ordenada por tipo.");
+                        System.out.println("5)Mostrar nombre y tipo de cartas existentes en la colección cargada.");
+                        System.out.println("6)Mostrar nombre y tipo de cartas de la colección cargada ordenada por tipo.");
                         System.out.println("7)Cambiar Implementación de MAP.");
                         System.out.println("8)Salir del programa.");
 
@@ -161,11 +168,16 @@ public class ImplementacionMAP {
                                     System.out.println("\n\t\tNo ha agregado cartas");
                                 }
                                 else{
-                                    System.out.println("\n\t-------------------------------------------------\n");
-                                    System.out.println("\tCartas de la Colección del Usuario");
-                                    System.out.println("\t-------------------------------------------------\n");
-                                    cartas_usuario.forEach((key, value) -> System.out.println("\t\t<> " + key ));
-                                    System.out.println("\t-------------------------------------------------\n");
+                                    if(haveTypes(cartas_usuario)){
+                                        System.out.println("\n\t-------------------------------------------------\n");
+                                        System.out.println("\tCartas de la Colección del Usuario");
+                                        System.out.println("\t-------------------------------------------------\n");
+                                        cartas_usuario.forEach((key, value) -> System.out.println("\t\t<> " + key ));
+                                        System.out.println("\t-------------------------------------------------\n");
+                                    }
+                                    else{
+                                        System.out.println("\n\t\tDebe tener por lo menos 3 tipos de cartas para utilizar la opción");
+                                    }
                                     
                                 }
                             }
@@ -175,22 +187,28 @@ public class ImplementacionMAP {
                                     System.out.println("\n\t\tNo ha agregado cartas");
                                 }
                                 else{
-                                    System.out.println("\n\t-------------------------------------------------\n");
-                                    System.out.println("\tTipos de Cartas y Carta de la Colección del Usuario\n");
-                                    System.out.println("\t-------------------------------------------------\n");
+                                    if(haveTypes(cartas_usuario)){
+                                        System.out.println("\n\t-------------------------------------------------\n");
+                                        System.out.println("\tTipos de Cartas y Carta de la Colección del Usuario\n\t(Ordenada por Tipo)\n");
+                                        System.out.println("\t-------------------------------------------------\n");
+
+                                        Map<String,String> tempMap = ordenarPorValue(cartas_usuario);
+
+                                        tempMap.forEach((key, value) -> System.out.println("\t\t"+ value + " : " + key));
+
+                                        //cartas_usuario.entrySet()
+                                        //.stream()
+                                        //.sorted(Map.Entry.<String, String>comparingByValue())
+                                        //.forEach(System.out::println);
+
+
+                                        //cartas_usuario.forEach((key, value) -> System.out.println("\t\t"+ value + " : " + key));
+                                        System.out.println("\t-------------------------------------------------\n");
+                                    }
+                                    else{
+                                        System.out.println("\n\t\tDebe tener por lo menos 3 tipos de cartas para utilizar la opción");
+                                    }
                                     
-                                    Map<String,String> tempMap = ordenarPorValue(cartas_usuario);
-                                    
-                                    tempMap.forEach((key, value) -> System.out.println("\t\t"+ value + " : " + key));
-                                    
-//                                    cartas_usuario.entrySet()
-//                                    .stream()
-//                                    .sorted(Map.Entry.<String, String>comparingByValue())
-//                                    .forEach(System.out::println);
-                                    
-                                    
-                                    //cartas_usuario.forEach((key, value) -> System.out.println("\t\t"+ value + " : " + key));
-                                    System.out.println("\t-------------------------------------------------\n");
                                 }
                             }
                             //Mostrando el tipo de carta y la carta de la colección cargada
@@ -213,12 +231,17 @@ public class ImplementacionMAP {
                                 }
                                 else{
                                     System.out.println("\n\t-------------------------------------------------\n");
-                                    System.out.println("\tTipos de Cartas y Carta de la Colección Cargada\n");
+                                    System.out.println("\tTipos de Cartas y Carta, Cargadas a la Colección\n\t(Ordenada por tipo)\n");
                                     System.out.println("\t-------------------------------------------------\n");
                                     
-                                    Map<String,String> tempMap = ordenarPorValue(cartas);
                                     
-                                    tempMap.forEach((key, value) -> System.out.println("\t\t"+ value + " : " + key));
+                                    //Map<String,String> tempMap = ordenarPorValue(cartas);
+                                    
+                                    MapController controlador_mapa = new MapController();
+                                    Map<String,String> tempMap = controlador_mapa.ordenarPorValue(cartas);
+                                    
+                                    //tempMap.forEach((key, value) -> System.out.println("\t\t"+ value + " : " + key));
+                                    controlador_mapa.printMap(tempMap);
                                     
 //                                    cartas_usuario.entrySet()
 //                                    .stream()
@@ -311,4 +334,39 @@ public class ImplementacionMAP {
         return resultado;
     }
     
+    public static boolean haveTypes(Map<String, String> busqueda_mapa){
+        
+        //Obtenemos todas las llaves del mapa
+        Set<String> keys = busqueda_mapa.keySet(); 
+        ArrayList temp = new ArrayList();
+        
+        // Recorremos el mapa por sus llaves 
+        for (String key : keys) {
+            
+            String value = busqueda_mapa.get(key);
+            
+            if(temp.size() == 0){
+                temp.add(value);
+            }
+            else if(!temp.contains("Trampa")){
+                temp.add(value);
+            }
+            else if(!temp.contains("Hechizo") ){
+                temp.add(value);
+            }
+            else if(!temp.contains("Monstruo")){
+                temp.add(value);
+            }
+            /*
+            // Obtenemos el value.
+            String value = filledMap.get(key);
+             
+            // Imprimimos.
+            System.out.printf("Key: [ %s ], Value: [ %s ].\n", key, value);
+            */
+        }
+        return temp.size() >= 3? true: false;
+    }
 }
+
+
