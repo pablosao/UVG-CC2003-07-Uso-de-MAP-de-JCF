@@ -1,7 +1,10 @@
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -112,7 +115,7 @@ public class ImplementacionMAP {
                         else if(opcion == 7){
                             control_menu = false;
                         }
-                        else if(0 < opcion && opcion < 6){
+                        else if(0 < opcion && opcion < 7){
                             
                             //Agregando una carta a la colección
                             if(opcion == 1){
@@ -184,8 +187,29 @@ public class ImplementacionMAP {
                                     System.out.println("\t-------------------------------------------------\n");
                                 }
                             }
+                            //Mostrando carta y tipo, ordenada por el tipo de carta
                             else if(opcion == 6){
-                                
+                                if(cartas_usuario.size() == 0){
+                                    System.out.println("\n\t\tNo ha agregado cartas");
+                                }
+                                else{
+                                    System.out.println("\n\t-------------------------------------------------\n");
+                                    System.out.println("\tTipos de Cartas y Carta de la Colección\n");
+                                    System.out.println("\t-------------------------------------------------\n");
+                                    
+                                    Map<String,String> tempMap = ordenarPorValue(cartas_usuario);
+                                    
+                                    tempMap.forEach((key, value) -> System.out.println("\t\t"+ value + " : " + key));
+                                    
+//                                    cartas_usuario.entrySet()
+//                                    .stream()
+//                                    .sorted(Map.Entry.<String, String>comparingByValue())
+//                                    .forEach(System.out::println);
+                                    
+                                    
+                                    //cartas_usuario.forEach((key, value) -> System.out.println("\t\t"+ value + " : " + key));
+                                    System.out.println("\t-------------------------------------------------\n");
+                                }
                             }
                             
                         }
@@ -231,4 +255,25 @@ public class ImplementacionMAP {
         }
         return maps;
     }
+    
+    public static <K extends Comparable<? super K>, V> Map<K, V> ordenarPorKey(Map<K, V> mapa_ordenar) {
+ 
+		Map<K, V> resultado = new LinkedHashMap<>();
+		Stream<Map.Entry<K, V>> sequentialStream = mapa_ordenar.entrySet().stream();
+ 
+		// comparingByKey() returns a comparator that compares Map.Entry in natural order on key.
+		sequentialStream.sorted(Map.Entry.comparingByKey()).forEachOrdered(c -> resultado.put(c.getKey(), c.getValue()));
+		return resultado;
+    }
+    
+    public static <K extends Comparable<? super K>, V> Map<K, V> ordenarPorValue(Map<K, V> mapa_ordenar) {
+ 
+		Map<K, V> resultado = new LinkedHashMap<>();
+		Stream<Map.Entry<K, V>> sequentialStream = mapa_ordenar.entrySet().stream();
+ 
+		// comparingByKey() returns a comparator that compares Map.Entry in natural order on key.
+		sequentialStream.sorted(Map.Entry.comparingByValue()).forEachOrdered(c -> resultado.put(c.getKey(), c.getValue()));
+		return resultado;
+    }
+    
 }
