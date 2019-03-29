@@ -33,7 +33,7 @@ Para ejecutar el programa es necesario contar con:
 * [Netbeans Profiler](https://profiler.netbeans.org/)
 
 
-##Referencias
+## Referencias
 
 * Javin Paul. (2018). _How to Sort Map by values in java 8 using Lambdas and Stream - Example Tutorial_. Extraído de: http://www.java67.com/2017/07/how-to-sort-map-by-values-in-java-8.html
 * ORACLE. (s.f.). _Interface Map<K,V>_. Extraído de: https://docs.oracle.com/javase/8/docs/api/java/util/Map.html
